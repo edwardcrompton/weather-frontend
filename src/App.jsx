@@ -6,8 +6,8 @@ import './App.css';
 
 const App = () => {
   const [lastRow, setLastRow] = useState(null);
-  const SHEET_ID = 'TemperatureLL208DY';  // Replace with your actual Google Sheet ID
-  const API_KEY = env('GOOGLE_SHEETS_API_KEY');
+  const SHEET_ID = '1wX7WssPkwmh9BJ48worzy3YpNaTzXm-Lkn_TuMMKiuE';  // Replace with your actual Google Sheet ID
+  const API_KEY = 'AIzaSyCj3GqDrlwT8lsPiSs-3-eG5JQAwdNDxJ0';
   const RANGE = 'Sheet1';  // Adjust if necessary, 'Sheet1' is the name of your sheet
 
   // Function to fetch the last row from Google Sheets
@@ -32,13 +32,13 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Google Sheets Last Row</h1>
+        <h1>Recent temperature</h1>
         {lastRow ? (
           <div>
-            <h3>Last Row:</h3>
+            <h3>Latest</h3>
             <ul>
               {lastRow.map((cell, index) => (
-                <li key={index}>{cell}</li>
+                <span>{cell},</span>
               ))}
             </ul>
           </div>
