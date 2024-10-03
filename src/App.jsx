@@ -41,7 +41,7 @@ const App = () => {
   var last24 = rows.slice(-24);
 
   var data = last24.map((dataPoint) => ({
-    time: moment(dataPoint[0], 'YYYY-MM-DD hh:mm').unix(),
+    time: moment(dataPoint[0], 'YYYY-MM-DD HH:mm').unix(),
     temp: dataPoint[1] / 1000
   })); 
 
@@ -78,7 +78,7 @@ const App = () => {
               type="number"
               dataKey="time"
               domain={['auto', 'auto']}
-              tickFormatter={(xdata) => moment(xdata, 'X', true).format('hh:mm')}
+              tickFormatter={(xdata) => moment(xdata, 'X', true).format('HH:mm')}
               name="Time"
               />
             <YAxis 
