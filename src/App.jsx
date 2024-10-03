@@ -1,8 +1,10 @@
 import './App.css';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, PureComponent } from 'react';
 import axios from 'axios';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './App.css';
+import moment from 'moment';
 
 const App = () => {
   const [rows, setRows] = useState(null);
@@ -38,6 +40,11 @@ const App = () => {
   // @todo: Needs updating in case the sample rate is greater or less than 1 per hour.
   var last24 = rows.slice(-24);
 
+  var data = last24.map((dataPoint) => ({
+    time: moment(dataPoint[0], 'YYYY-MM-DD HH:mm:ss').unix(),
+    temp: dataPoint[1] / 1000
+  })); 
+
   last24.sort(function(a, b) {
     return parseFloat(a[1]) - parseFloat(b[1]);
   });
@@ -64,6 +71,29 @@ const App = () => {
             <h3>Updated</h3>
             {updated}
           </div>
+          <h3>Trend</h3>
+          <LineChart width={500} height={300} data={data}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis 
+              type="number"
+              dataKey="time"
+              domain={['auto', 'auto']}
+              tickFormatter={(unixTime) => moment(unixTime).format('hh:mm')}
+              name="Time"
+              />
+            <YAxis 
+              type="number"
+              name="Temperature"
+              />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="temp"
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
+            />
+          </LineChart>
         </div>  
         ) : (
           <p>Loading...</p>
