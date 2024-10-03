@@ -35,14 +35,15 @@ const App = () => {
   var latestRounded = Math.round(latest * 10) / 10;
   var updated = rows[rows.length - 1][0];
 
+  // @todo: Needs updating in case the sample rate is greater or less than 1 per hour.
   var last24 = rows.slice(-24);
 
   last24.sort(function(a, b) {
     return parseFloat(a[1]) - parseFloat(b[1]);
   });
 
-  //var max = last24[0][1];
-  //var min = last24[-1][1];
+  var min = Math.round(last24[0][1] / 1000 * 10) / 10;
+  var max = Math.round(last24[last24.length - 1][1] / 1000 * 10) / 10;
 
   return (
     <div className="App">
@@ -56,8 +57,12 @@ const App = () => {
           </div>
           <div>
             <h3>Last 24 hours</h3>
-            <span>Max: {max}&deg;C</span>
-            <span>Min: {min}&deg;C</span>
+            <div>Max: {max}&deg;C</div>
+            <div>Min: {min}&deg;C</div>
+          </div>
+          <div>
+            <h3>Updated</h3>
+            {updated}
           </div>
         </div>  
         ) : (
