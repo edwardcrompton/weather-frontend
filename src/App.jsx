@@ -11,6 +11,7 @@ const App = () => {
   const SHEET_ID = '1wX7WssPkwmh9BJ48worzy3YpNaTzXm-Lkn_TuMMKiuE';  // Replace with your actual Google Sheet ID
   const API_KEY = 'AIzaSyCj3GqDrlwT8lsPiSs-3-eG5JQAwdNDxJ0';
   const RANGE = 'Sheet1';  // Adjust if necessary, 'Sheet1' is the name of your sheet
+  const DATEFORMAT = 'YYYY-MM-DD HH:mm';
 
   // Function to fetch the last row from Google Sheets
   const fetchRows = async () => {
@@ -38,10 +39,25 @@ const App = () => {
   var updated = rows[rows.length - 1][0];
 
   // @todo: Needs updating in case the sample rate is greater or less than 1 per hour.
-  var last24 = rows.slice(-24);
+  function getDataPointsInLast(dataPoints, value, unit) {
+    var targetTime = moment().subtract(value, unit).format('YYYY-MM-DD HH:mm');
+    
+    // Find the first index where the time is greater than targetTime
+    const index = dataPoints.findIndex((dataPoint) => moment(dataPoint[0], DATEFORMAT).isAfter(targetTime));
+    
+    // If such an index is found, slice the array from that point
+    if (index !== -1) {
+      return dataPoints.slice(index);
+    }
+  
+    // If no time is greater than targetTime, return an empty array
+    return [];
+  }
+
+  var last24 = getDataPointsInLast(rows, 24, 'hours');
 
   var data = last24.map((dataPoint) => ({
-    time: moment(dataPoint[0], 'YYYY-MM-DD HH:mm').unix(),
+    time: moment(dataPoint[0], DATEFORMAT).unix(),
     temp: dataPoint[1] / 1000
   })); 
 
