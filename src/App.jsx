@@ -57,8 +57,8 @@ const App = () => {
   var last24 = getDataPointsInLast(rows, 24, 'hours');
 
   var data = last24.map((dataPoint) => ({
-    time: moment(dataPoint[0], DATEFORMAT).unix(),
-    temp: dataPoint[1] / 1000
+    Time: moment(dataPoint[0], DATEFORMAT).unix(),
+    Temperature: dataPoint[1] / 1000
   })); 
 
   last24.sort(function(a, b) {
@@ -88,26 +88,23 @@ const App = () => {
             {updated}
           </div>
           <h3>Trend</h3>
-          <LineChart width={500} height={300} data={data}>
+          <LineChart width={400} height={400} data={data} margin={{ top: 15, right: 0, left: 0, bottom: 15 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis 
               type="number"
-              dataKey="time"
+              dataKey="Time"
               domain={['auto', 'auto']}
               tickFormatter={(xdata) => moment(xdata, 'X', true).format('HH:mm')}
               name="Time"
               />
-            <YAxis 
-              type="number"
-              name="Temperature"
-              />
+            <YAxis />
             <Tooltip />
-            <Legend />
             <Line
               type="monotone"
-              dataKey="temp"
+              dataKey="Temperature"
               stroke="#8884d8"
-              activeDot={{ r: 8 }}
+              activeDot={{ r: 6 }}
+              dot={false}
             />
           </LineChart>
         </div>  
