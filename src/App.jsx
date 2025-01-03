@@ -66,7 +66,7 @@ const App = () => {
   });
 
   var minDataPoint = last24[0];
-  var maxDataPoint = last24[last24.length - 1]'
+  var maxDataPoint = last24[last24.length - 1];
   var min = Math.round(minDataPoint[1] / 1000 * 10) / 10;
   var max = Math.round(maxDataPoint[1] / 1000 * 10) / 10;
 
