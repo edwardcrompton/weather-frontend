@@ -65,8 +65,10 @@ const App = () => {
     return parseFloat(a[1]) - parseFloat(b[1]);
   });
 
-  var min = Math.round(last24[0][1] / 1000 * 10) / 10;
-  var max = Math.round(last24[last24.length - 1][1] / 1000 * 10) / 10;
+  var minDataPoint = last24[0];
+  var maxDataPoint = last24[last24.length - 1]'
+  var min = Math.round(minDataPoint[1] / 1000 * 10) / 10;
+  var max = Math.round(maxDataPoint[1] / 1000 * 10) / 10;
 
   return (
     <div className="App">
@@ -80,8 +82,8 @@ const App = () => {
           </div>
           <div>
             <h3>Last 24 hours</h3>
-            <div>Max: {max}&deg;C</div>
-            <div>Min: {min}&deg;C</div>
+            <div>Max: {max}&deg;C at {maxDataPoint[0]}</div>
+            <div>Min: {min}&deg;C at {minDataPoint[0]}</div>
           </div>
           <div>
             <h3>Updated</h3>
