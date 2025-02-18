@@ -1,2 +1,6 @@
 credentials.json
 node_modules
+
+# Local Netlify folder
+.netlify
+netlify/functions/credentials.json

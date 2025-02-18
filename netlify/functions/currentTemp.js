@@ -27,7 +27,7 @@ exports.handler = async function (event, context) {
       const lastRow = rows[rows.length - 1];
       return {
         statusCode: 200,
-        body: `Last row in the spreadsheet: ${JSON.stringify(lastRow)}`,
+        body: JSON.stringify(lastRow),
       };
     } else {
       return {
