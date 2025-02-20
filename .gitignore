@@ -1,6 +1,6 @@
-credentials.json
 node_modules
+.vscode
 
 # Local Netlify folder
 .netlify
-netlify/functions/credentials.json
+netlify/weather.db
