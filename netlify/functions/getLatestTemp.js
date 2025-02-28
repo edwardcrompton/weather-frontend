@@ -1,31 +1,28 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+const admin = require('firebase-admin');
 
-const DBPATH = path.join(__dirname, '../weather.db');
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
-exports.handler = async function (event, context) {
-  let db = new sqlite3.Database(DBPATH);
-
-  return new Promise((resolve, reject) => {
-    db.get('SELECT * FROM temperatures ORDER BY timestamp DESC LIMIT 1', [], (err, row) => {
-      if (err) {
-        console.error('Error fetching data from SQLite database', err);
-        resolve({
-          statusCode: 500,
-          body: 'Error fetching data from SQLite database',
-        });
-      } else {
-        resolve({
-          statusCode: 200,
-          body: JSON.stringify(row),
-        });
-      }
+// Initialize Firebase Admin SDK (only once)
+if (!admin.apps.length) {
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: 'https://temperature-21d9f-default-rtdb.europe-west1.firebasedatabase.app/'
     });
+}
 
-    db.close((err) => {
-      if (err) {
-        console.error('Error closing the database connection', err);
-      }
-    });
-  });
+exports.handler = async (event, context) => {
+  // As an admin, the app has access to read and write all data, regardless of Security Rules
+  var db = admin.database();
+  var ref = db.ref("temperatures");
+  // Fetch the latest temperature
+  let snapshot = await ref.orderByKey().limitToLast(1).once("value");
+
+  // Extract the value (since Firebase returns an object with keys)
+  let latestEntry = snapshot.val();
+  let latestTemp = latestEntry ? Object.values(latestEntry)[0] : null;
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({latestTemp})
+  };
 };
