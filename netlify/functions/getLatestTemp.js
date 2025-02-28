@@ -15,7 +15,7 @@ exports.handler = async (event, context) => {
   var db = admin.database();
   var ref = db.ref("temperatures");
   // Fetch the latest temperature
-  let snapshot = await ref.orderByKey().limitToLast(1).once("value");
+  let snapshot = await ref.orderByChild("timestamp").limitToLast(1).once("value");
 
   // Extract the value (since Firebase returns an object with keys)
   let latestEntry = snapshot.val();
