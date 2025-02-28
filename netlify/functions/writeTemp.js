@@ -1,12 +1,15 @@
 const admin = require('firebase-admin');
 //const functions = require('@netlify/functions');
-const path = require('path');
-const serviceAccount = require(path.resolve(__dirname, '../../credentials.json'));
 
-// Initialize Firebase Admin SDK
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+
+// Initialize Firebase Admin SDK (only once)
 if (!admin.apps.length) {
-    admin.initializeApp(serviceAccount);
-}
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: 'https://temperature-21d9f-default-rtdb.europe-west1.firebasedatabase.app/'
+    });
+}    
 
 exports.handler = async (event, context) => {
     try {
