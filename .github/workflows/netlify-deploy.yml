@@ -3,36 +3,22 @@ name: Deploy to Netlify
 on:
   push:
     branches:
-      - feature/microservice  # Adjust if you use a different branch (e.g., `master`)
-  pull_request:
-    branches:
-      - main  # Optional: Deploy when a pull request is created to the `main` branch
+      - feature/microservice
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
     steps:
-      # Checkout code from the repository
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
-      # Set up Node.js (if using Node.js for your app)
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'  # Adjust to the version of Node.js you're using
+          node-version: '18'  # Match your project's Node.js version
 
-      # Install dependencies (only if needed)
-      - name: Install dependencies
-        run: |
-          npm install  # Use yarn or other package managers if you're not using npm
-
-      # Deploy to Netlify using the Netlify CLI
       - name: Deploy to Netlify
-        uses: netlify/actions/cli@v2
-        with:
-          production-branch: feature/microservices  # Deploy from the main branch
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
-
+        run: |
+          npm install -g netlify-cli
+          npm install
+          netlify deploy --prod --dir=. --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ac6cd1a2-2b63-47a7-af71-17c6345e39bc
