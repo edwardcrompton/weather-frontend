@@ -22,6 +22,9 @@ exports.handler = async (event, context) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify({latestTemp})
+    body: JSON.stringify({
+      temperature: latestTemp ? latestTemp.temperature : null,
+      timestamp: latestTemp ? latestTemp.timestamp : null
+    })
   };
 };

@@ -22,3 +22,7 @@ body {
     font-size: 1.5em;
     color: #555;
 }
+.timestamp {
+    font-size: 0.8em;
+    font-style: italic;
+}
