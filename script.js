@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const temperatureElement = document.getElementById('temperature');
             const timestampElement = document.getElementById('timestamp');
             const temperature = (data.temperature / 1000).toFixed(1);
-            const timestamp = new Date(data.timestamp).toLocaleTimeString('en-GB', { timeZone: 'UTC', hour12: false });
+            const timestamp = new Date(data.timestamp).toLocaleString('en-GB', { timeZone: 'UTC', hour12: false });
 
             temperatureElement.textContent = `${temperature}°C`;
             timestampElement.textContent = `Last updated: ${timestamp}`;
