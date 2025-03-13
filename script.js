@@ -28,14 +28,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     datasets: [{
                         label: 'Temperature (°C)',
                         data: temperatures,
-                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderColor: 'rgba(75, 192, 192, 1)', // Cyan line
                         borderWidth: 1,
-                        fill: false
+                        fill: false,
+                        pointRadius: 0 // Remove datapoint markers
                     }]
                 },
                 options: {
+                    plugins: {
+                        legend: {
+                            display: false // Remove legend
+                        }
+                    },
                     scales: {
                         x: {
+                            
                             title: {
                                 display: true,
                                 text: 'Time'
