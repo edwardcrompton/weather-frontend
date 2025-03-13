@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             const ctx = document.getElementById('temperatureChart').getContext('2d');
-            const labels = data.temperatures.map(entry => new Date(entry.timestamp).toLocaleTimeString('en-GB', { timeZone: 'UTC', hour12: false }));
+            const labels = data.temperatures.map(entry => new Date(entry.timestamp).toLocaleTimeString('en-GB', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' }));
             const temperatures = data.temperatures.map(entry => (entry.temperature / 1000).toFixed(1));
 
             new Chart(ctx, {
@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     scales: {
                         x: {
-                            
                             title: {
                                 display: true,
                                 text: 'Time'
