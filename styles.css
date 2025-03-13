@@ -5,24 +5,27 @@ body {
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #000; /* Changed to black */
+    color: #ddd; /* Changed to light grey */
 }
 .temperature {
     text-align: center;
     padding: 20px;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: #333; /* Dark background for contrast */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .temperature h1 {
     font-size: 3em;
     margin: 0;
+    color: #fff; /* White text */
 }
 .temperature-value {
     font-size: 1.5em;
-    color: #555;
+    color: #ddd; /* Light grey text */
 }
 .timestamp {
     font-size: 0.8em;
     font-style: italic;
+    color: #bbb; /* Slightly darker grey text */
 }

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Current Temperature</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -13,6 +14,7 @@
         <h1>Latest temperature</h1>
         <p id="temperature" class="temperature-value">--.-°C</p>
         <p id="timestamp" class="timestamp">Last updated: --:--:--</p>
+        <canvas id="temperatureChart" width="400" height="400"></canvas>
     </div>
     <script src="script.js"></script>
 </body>
