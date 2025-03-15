@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
     const fetchAndRenderChart = (hours) => {
+        loadingSpinner.style.display = 'block'; // Show loading spinner
         fetch(`.netlify/functions/getTrendTemp?hours=${hours}`)
             .then(response => response.json())
             .then(data => {
@@ -48,6 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 });
+            })
+            .finally(() => {
+                loadingSpinner.style.display = 'none'; // Hide loading spinner
             })
             .catch(error => {
                 console.error('Error fetching temperature trend:', error);
