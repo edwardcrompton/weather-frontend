@@ -72,3 +72,14 @@ body {
         transform: scale(1.5);
     }
 }
+
+/* Limit chart width on small screens */
+@media (max-width: 400px) {
+    .chart-container {
+        width: 100%;
+    }
+    canvas#temperatureChart {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
