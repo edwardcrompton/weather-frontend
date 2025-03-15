@@ -1,35 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using @vitejs/plugin-react"
-    />
-    <link rel="apple-touch-icon" href="/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="/manifest.json" />
-    <title>Local conditions</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
-  <script type="module" src="/src/index.jsx"></script>
+<body>
+    <div class="temperature">
+        <h1>Temperature</h1>
+        <p id="temperature" class="temperature-value">--.-°C</p>
+        <p id="timestamp" class="timestamp">Last updated: --:--:--</p>
+        <canvas id="temperatureChart" width="400" height="400"></canvas>
+        <div id="loadingSpinner" class="loading-spinner" style="display: none;"></div>
+        <div class="time-range">
+            <label><input autocomplete="off" type="radio" name="timeRange" value="24" checked> 24 hours</label>
+            <label><input autocomplete="off" type="radio" name="timeRange" value="48"> 48 hours</label>
+            <label><input autocomplete="off" type="radio" name="timeRange" value="168"> 1 week</label>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
 </html>

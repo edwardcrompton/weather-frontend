@@ -1,70 +1,78 @@
-# GitHub Codespaces ♥️ React
+# Weather Frontend
 
-Welcome to your shiny new Codespace running React! We've got everything fired up and running for you to explore React.
+This project is a weather monitoring frontend that displays the latest temperature and a temperature trend chart for a selected time range. It is built using HTML, CSS, JavaScript, and Chart.js, and integrates with a backend API hosted on Netlify.
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+## Features
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+- **Latest Temperature Display**: Shows the most recent temperature reading along with the timestamp of the last update.
+- **Temperature Trend Chart**: Displays a line chart of temperature trends for the selected time range (24 hours, 48 hours, or 1 week).
+- **API Endpoints**: Includes two Netlify functions providing API endpoints to access temperature data from a Firebase database.
 
-This project was bootstrapped for you with [Vite](https://vitejs.dev/).
+## How It Works
 
-## Available Scripts
+1. **Latest Temperature**:
+   - The frontend fetches the latest temperature data from the `.netlify/functions/getLatestTemp` endpoint.
+   - The temperature and timestamp are displayed at the top of the page.
 
-In the project directory, you can run:
+2. **Temperature Trend Chart**:
+   - The chart fetches data from the `.netlify/functions/getTrendTemp` endpoint with a configurable `hours` parameter.
+   - The chart updates dynamically when the user selects a different time range.
 
-### `npm start`
+3. **Responsive Adjustments**:
+   - On screens less than 400px wide, the chart width is limited to 100% of the screen, and axis titles are hidden for better readability.
+   - Radio buttons are proportionally larger on mobile screens for easier interaction.
 
-We've already run this for you in the `Codespaces: server` terminal window below. If you need to stop the server for any reason you can just run `npm start` again to bring it back online.
+## File Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000/](http://localhost:3000/) in the built-in Simple Browser (`Cmd/Ctrl + Shift + P > Simple Browser: Show`) to view your running application.
+- **index.html**: The main HTML file containing the structure of the page, including the chart and radio buttons.
+- **styles.css**: Contains the styles for the page, including responsive design and the animated loading spinner.
+- **script.js**: Handles fetching data from the backend, rendering the chart, and managing user interactions.
+- **.github/workflows/netlify-deploy.yml**: GitHub Actions workflow for deploying the project to Netlify.
+- **netlify/functions/getLatestTemp.js**: Backend function to fetch the latest temperature data from Firebase.
 
-The page will reload automatically when you make changes.\
-You may also see any lint errors in the console.
+## Setup and Deployment
 
-### `npm test`
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd weather-frontend
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### `npm run build`
+3. Deploy to Netlify:
+   - Ensure you have a valid `NETLIFY_AUTH_TOKEN` and `FIREBASE_SERVICE_ACCOUNT` configured in your environment.
+   - Push changes to the `feature/microservice` branch to trigger the GitHub Actions workflow for deployment.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## API Endpoints
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **GET /netlify/functions/getLatestTemp**:
+  - Returns the latest temperature and timestamp in JSON format. The temperature is provided as an integer with three decimal places but no decimal point, so it must be divided by 1000 to get the centigrade value.
+  - Example response:
+    ```json
+    {
+      "temperature": 25300,
+      "timestamp": "2023-03-15T12:00:00Z"
+    }
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **GET /netlify/functions/getTrendTemp?hours=<hours>**:
+  - Returns an array of temperature readings for the specified time range. Each temperature is provided as an integer with three decimal places but no decimal point, so it must be divided by 1000 to get the centigrade value.
+  - Example response:
+    ```json
+    {
+      "temperatures": [
+        { "timestamp": 1678886400000, "temperature": 25300 },
+        { "timestamp": 1678890000000, "temperature": 24800 }
+      ]
+    }
+    ```
 
-## Learn More
+## Technologies Used
 
-You can learn more in the [Vite documentation](https://vitejs.dev/guide/).
-
-To learn Vitest, a Vite-native testing framework, go to [Vitest documentation](https://vitest.dev/guide/)
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://sambitsahoo.com/blog/vite-code-splitting-that-works.html](https://sambitsahoo.com/blog/vite-code-splitting-that-works.html)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf)
-
-### Advanced Configuration
-
-This section has moved here: [https://vitejs.dev/guide/build.html#advanced-base-options](https://vitejs.dev/guide/build.html#advanced-base-options)
-
-### Deployment
-
-This section has moved here: [https://vitejs.dev/guide/build.html](https://vitejs.dev/guide/build.html)
-
-### Troubleshooting
-
-This section has moved here: [https://vitejs.dev/guide/troubleshooting.html](https://vitejs.dev/guide/troubleshooting.html)
+- **Frontend**: HTML, CSS, JavaScript, Chart.js
+- **Backend**: Firebase Realtime Database, Netlify Functions
+- **Deployment**: Netlify, GitHub Actions
