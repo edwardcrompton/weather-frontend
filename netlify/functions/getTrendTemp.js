@@ -22,9 +22,7 @@ exports.handler = async (event, context) => {
   }
 
   const currentTime = Date.now();
-  const pastTime = currentTime - (hours * 60 * 60 * 1000);
-  console.log('Past time:', new Date(pastTime).toISOString());
-  console.log(pastTime);
+  const pastTime = (currentTime - (hours * 60 * 60 * 1000)) * 1000;
 
   var db = admin.database();
   var ref = db.ref("temperatures");
