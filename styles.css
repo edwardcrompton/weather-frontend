@@ -55,3 +55,20 @@ body {
         transform: rotate(360deg);
     }
 }
+.time-range label {
+    margin-right: 10px;
+    font-size: 1em;
+}
+.time-range input[type="radio"] {
+    transform: scale(1);
+}
+
+/* Make radio buttons bigger on mobile screens */
+@media (max-width: 600px) {
+    .time-range label {
+        font-size: 1.2em;
+    }
+    .time-range input[type="radio"] {
+        transform: scale(1.5);
+    }
+}
