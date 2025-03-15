@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
+                const isSmallScreen = window.innerWidth < 400;
+
                 window.temperatureChart = new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -38,13 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         scales: {
                             x: {
                                 title: {
-                                    display: true,
+                                    display: !isSmallScreen, // Hide title on small screens
                                     text: 'Time'
                                 }
                             },
                             y: {
                                 title: {
-                                    display: true,
+                                    display: !isSmallScreen, // Hide title on small screens
                                     text: 'Temperature (°C)'
                                 }
                             }
