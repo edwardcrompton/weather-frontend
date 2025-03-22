@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loadingSpinner = document.getElementById('loadingSpinner');
+    const maxTemperatureElement = document.getElementById('maxTemperature');
+    const minTemperatureElement = document.getElementById('minTemperature');
 
     const fetchAndRenderChart = (hours) => {
         loadingSpinner.style.display = 'block'; // Show loading spinner
@@ -9,6 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const ctx = document.getElementById('temperatureChart').getContext('2d');
                 const labels = data.temperatures.map(entry => new Date(entry.timestamp / 1000).toLocaleString('en-GB', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' }));
                 const temperatures = data.temperatures.map(entry => (entry.temperature / 1000).toFixed(1));
+
+                // Calculate max and min temperatures
+                const maxTempEntry = data.temperatures.reduce((max, entry) => (entry.temperature > max.temperature ? entry : max), data.temperatures[0]);
+                const minTempEntry = data.temperatures.reduce((min, entry) => (entry.temperature < min.temperature ? entry : min), data.temperatures[0]);
+
+                const maxTemp = (maxTempEntry.temperature / 1000).toFixed(1);
+                const maxTempTime = new Date(maxTempEntry.timestamp / 1000).toLocaleTimeString('en-GB', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' });
+
+                const minTemp = (minTempEntry.temperature / 1000).toFixed(1);
+                const minTempTime = new Date(minTempEntry.timestamp / 1000).toLocaleTimeString('en-GB', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' });
+
+                // Render max and min temperatures
+                maxTemperatureElement.textContent = `Max: ${maxTemp}°C at ${maxTempTime}`;
+                minTemperatureElement.textContent = `Min: ${minTemp}°C at ${minTempTime}`;
 
                 if (window.temperatureChart) {
                     if (window.temperatureChart && typeof window.temperatureChart.destroy === 'function') {

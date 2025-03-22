@@ -83,3 +83,9 @@ body {
         height: auto !important;
     }
 }
+
+.temperature-extreme {
+    font-size: 1em;
+    color: #ddd; /* Light grey text */
+    margin: 5px 0;
+}
