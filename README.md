@@ -2,6 +2,12 @@
 
 This project is a weather monitoring frontend that displays the latest temperature and a temperature trend chart for a selected time range. It is built using HTML, CSS, JavaScript, and Chart.js, and integrates with a backend API hosted on Netlify.
 
+Data is collected by a Raspberry Pi connected to a thermometer in my garden. 
+
+The repository containing the code that runs on the Raspberry Pi to record the data is https://github.com/edwardcrompton/rpi-temp
+
+See this frontend in action at https://thriving-moonbeam-0aff39.netlify.app/
+
 ## Features
 
 - **Latest Temperature Display**: Shows the most recent temperature reading along with the timestamp of the last update.
