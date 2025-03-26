@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const authenticateToken = require('../../middleware/auth'); // Import the middleware
 //const functions = require('@netlify/functions');
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
@@ -12,6 +13,14 @@ if (!admin.apps.length) {
 }    
 
 exports.handler = async (event, context) => {
+    // Use the middleware to authenticate the request
+    await new Promise((resolve, reject) => {
+        authenticateToken(event, context, (err) => {
+            if (err) reject(err);
+            else resolve();
+        });
+    });
+
     try {
         const { timestamp, temperature } = JSON.parse(event.body);
 
