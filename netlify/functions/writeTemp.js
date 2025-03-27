@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
-//const functions = require('@netlify/functions');
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+const validToken = process.env.MICROSERVICE_BEARER_TOKEN; // Add a valid token in your environment variables
 
 // Initialize Firebase Admin SDK (only once)
 if (!admin.apps.length) {
@@ -9,10 +9,20 @@ if (!admin.apps.length) {
         credential: admin.credential.cert(serviceAccount),
         databaseURL: 'https://temperature-21d9f-default-rtdb.europe-west1.firebasedatabase.app/'
     });
-}    
+}
 
 exports.handler = async (event, context) => {
     try {
+        // Check for a valid bearer token
+        const authHeader = event.headers.authorization || '';
+        const token = authHeader.split(' ')[1]; // Extract token from "Bearer <token>"
+        if (token !== validToken) {
+            return {
+                statusCode: 403,
+                body: JSON.stringify({ error: 'Forbidden: Invalid token' })
+            };
+        }
+
         const { timestamp, temperature } = JSON.parse(event.body);
 
         if (!timestamp || !Number.isInteger(temperature)) {
