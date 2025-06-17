@@ -25,10 +25,10 @@ exports.handler = async (event, context) => {
 
         const { timestamp, temperature } = JSON.parse(event.body);
 
-        if (!timestamp || !Number.isInteger(temperature)) {
+        if (!timestamp || typeof temperature !== 'number') {
             return {
                 statusCode: 400,
-                body: JSON.stringify({ error: 'Invalid input' })
+                body: JSON.stringify({ error: 'Invalid input: timestamp must be provided and temperature must be a number' })
             };
         }
 
